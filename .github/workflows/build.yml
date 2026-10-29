@@ -1,0 +1,16 @@
+name: Build APK
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - run: pip install flet[cli]
+      - run: flet build apk chatult_android.py --project "ChatULT"
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ChatULT-APK
+          path: build/apk/*.apk
